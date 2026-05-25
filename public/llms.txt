@@ -1,0 +1,80 @@
+# Santa4California — Generative Engine Optimization Map
+
+> A booking-focused business centered around Santa Claus experiences, likely offering appearances at events, parties, or photo sessions during the holiday season. The brand naturally evokes a festive, magical, and joyful atmosphere with Christmas themes, and is likely aimed at creating memorable holiday moments for families, children, or corporate events.
+
+---
+
+## Pages
+
+### Home
+https://santa4california-c9e242b4.zappy5.app
+Santa4California brings the magic of Christmas to life! Hire Santa for unforgettable Entertainment &amp; Events, family parties, and corporate gatherings across California. Book today!
+
+### Services
+https://santa4california-c9e242b4.zappy5.app/services
+Explore premium Entertainment &amp; Events services from Santa4California — photo sessions, private parties, corporate events, and more. Discover the perfect Santa package for your celebration!
+
+### About
+https://santa4california-c9e242b4.zappy5.app/about
+Santa4California has been crafting joyful Entertainment &amp; Events experiences across California for years. Learn our story, our passion for Christmas magic, and why families trust us every season!
+
+### Contact
+https://santa4california-c9e242b4.zappy5.app/contact
+Ready to HireSanta for your next event? Contact Santa4California today to check availability, get a custom quote, and lock in your unforgettable Entertainment &amp; Events holiday experience fast!
+
+## Legal & Policy
+
+### Privacy Policy
+https://santa4california-c9e242b4.zappy5.app/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://santa4california-c9e242b4.zappy5.app/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://santa4california-c9e242b4.zappy5.app/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://santa4california-c9e242b4.zappy5.app/contact
+- Endpoint: https://santa4california-c9e242b4.zappy5.app/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Santa4California
+A booking-focused business centered around Santa Claus experiences, likely offering appearances at events, parties, or photo sessions during the holiday season. The brand naturally evokes a festive, magical, and joyful atmosphere with Christmas themes, and is likely aimed at creating memorable holiday moments for families, children, or corporate events.
+
+## Services/Products
+- Santa bookings
+
+## Target Audience
+- Holiday Event Planners
+- Family-Focused Communities
+
+## Industry
+Entertainment & Events
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://santa4california-c9e242b4.zappy5.app/sitemap.xml
+- Robots: https://santa4california-c9e242b4.zappy5.app/robots.txt
+- Flattened page text (for LLMs): https://santa4california-c9e242b4.zappy5.app/llms-full.txt

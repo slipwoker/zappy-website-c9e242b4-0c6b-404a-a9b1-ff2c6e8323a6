@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Festive Santa Experiences Await You — Santa4California</title>
+    <meta name="description" content="Explore premium Entertainment &amp; Events services from Santa4California — photo sessions, private parties, corporate events, and more. Discover the perfect Santa package for your celebration!">
+    <meta name="keywords" content="entertainment & events, Santa party appearances, holiday photo sessions, corporate Christmas events, Santa booking packages">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'c9e242b4-0c6b-404a-a9b1-ff2c6e8323a6',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="Festive Santa Experiences Await You — Santa4California">
+    <meta property="og:description" content="Explore premium Entertainment &amp; Events services from Santa4California — photo sessions, private parties, corporate events, and more. Discover the perfect Santa package for your celebration!">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Festive Santa Experiences Await You — Santa4California">
+    <meta name="twitter:description" content="Explore premium Entertainment &amp; Events services from Santa4California — photo sessions, private parties, corporate events, and more. Discover the perfect Santa package for your celebration!">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 0; transform: translateY(-200%); padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { transform: none; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <script>window.ZAPPY_WEBSITE_ID = "c9e242b4-0c6b-404a-a9b1-ff2c6e8323a6"; window.ZAPPY_API_BASE = "https://api.zappy5.com";</script>
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-light) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-light) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-light) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-services-image-1.webp" alt="Santa4California"></a>
+    </div>
+
+    <ul class="nav-menu" id="navMenu"><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/about">About</a></li></ul>
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-light)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section class="services-intro-section" data-layout-spec="Services-intro">
+
+  <!-- Decorative corner flourish top-left -->
+  <div class="si-corner-flourish si-corner-tl" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <g opacity="0.55">
+        <!-- Stem curves -->
+        <path d="M10,110 Q30,80 55,60 Q70,50 90,30" stroke="#1F5B3A" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <path d="M10,110 Q40,90 65,75 Q80,65 100,50" stroke="#1F5B3A" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+        <!-- Holly leaves -->
+        <ellipse cx="60" cy="55" rx="14" ry="7" fill="#1F5B3A" transform="rotate(-35 60 55)"></ellipse>
+        <ellipse cx="72" cy="45" rx="12" ry="6" fill="#1F5B3A" transform="rotate(-55 72 45)"></ellipse>
+        <ellipse cx="50" cy="65" rx="12" ry="6" fill="#1F5B3A" transform="rotate(-20 50 65)"></ellipse>
+        <!-- Berries -->
+        <circle cx="67" cy="52" r="4" fill="#9B0F1C"></circle>
+        <circle cx="73" cy="57" r="3.5" fill="#9B0F1C"></circle>
+        <circle cx="62" cy="58" r="3" fill="#9B0F1C"></circle>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Decorative corner flourish top-right -->
+  <div class="si-corner-flourish si-corner-tr" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <g opacity="0.55">
+        <path d="M110,110 Q90,80 65,60 Q50,50 30,30" stroke="#1F5B3A" stroke-width="2" fill="none" stroke-linecap="round"></path>
+        <path d="M110,110 Q80,90 55,75 Q40,65 20,50" stroke="#1F5B3A" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+        <ellipse cx="60" cy="55" rx="14" ry="7" fill="#1F5B3A" transform="rotate(35 60 55)"></ellipse>
+        <ellipse cx="48" cy="45" rx="12" ry="6" fill="#1F5B3A" transform="rotate(55 48 45)"></ellipse>
+        <ellipse cx="70" cy="65" rx="12" ry="6" fill="#1F5B3A" transform="rotate(20 70 65)"></ellipse>
+        <circle cx="53" cy="52" r="4" fill="#9B0F1C"></circle>
+        <circle cx="47" cy="57" r="3.5" fill="#9B0F1C"></circle>
+        <circle cx="58" cy="58" r="3" fill="#9B0F1C"></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si-container">
+
+    <!-- Eyebrow label -->
+    <div class="si-eyebrow">
+      <span class="si-eyebrow-line" aria-hidden="true"></span>
+      <span class="si-eyebrow-text">Santa Experiences</span>
+      <span class="si-eyebrow-line" aria-hidden="true"></span>
+    </div>
+
+    <!-- Main heading -->
+    <h1 class="si-heading">Bringing the Magic of Santa<br>to Every Gathering</h1>
+
+    <!-- Ornamental divider -->
+    <div class="si-ornament" aria-hidden="true">
+      <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 320 28" fill="none" xmlns="http://www.w3.org/2000/svg" width="320" height="28">
+        <!-- Left line -->
+        <line x1="0" y1="14" x2="110" y2="14" stroke="#D9A441" stroke-width="1.5" opacity="0.7"></line>
+        <!-- Left leaf flourish -->
+        <ellipse cx="118" cy="14" rx="8" ry="4" fill="#D9A441" opacity="0.6" transform="rotate(-15 118 14)"></ellipse>
+        <ellipse cx="124" cy="11" rx="6" ry="3" fill="#D9A441" opacity="0.5" transform="rotate(15 124 11)"></ellipse>
+        <!-- Central diamond -->
+        <rect x="152" y="8" width="16" height="16" fill="none" stroke="#D9A441" stroke-width="1.5" opacity="0.85" transform="rotate(45 160 16)"></rect>
+        <rect x="156" y="12" width="8" height="8" fill="#D9A441" opacity="0.5" transform="rotate(45 160 16)"></rect>
+        <!-- Right leaf flourish -->
+        <ellipse cx="196" cy="14" rx="8" ry="4" fill="#D9A441" opacity="0.6" transform="rotate(15 196 14)"></ellipse>
+        <ellipse cx="202" cy="17" rx="6" ry="3" fill="#D9A441" opacity="0.5" transform="rotate(-15 202 17)"></ellipse>
+        <!-- Right line -->
+        <line x1="210" y1="14" x2="320" y2="14" stroke="#D9A441" stroke-width="1.5" opacity="0.7"></line>
+      </svg>
+    </div>
+
+    <!-- Intro paragraph -->
+    <div class="si-copy">
+      <p>Whether you're planning an intimate family evening at home, a neighborhood holiday gathering, a school celebration, or a corporate Christmas party, Santa4California brings the warmth, wonder, and joy of an authentic Santa Claus experience directly to you. Each appearance is crafted to create genuine, lasting memories — the kind that children carry with them for a lifetime and families treasure for years to come.</p>
+      <p>Browse the experiences below and discover the perfect way to welcome Santa into your celebration this holiday season.</p>
+    </div>
+
+  </div>
+
+  <!-- Panoramic image strip -->
+  <div class="si-image-strip">
+    <img loading="eager" fetchpriority="high" data-placeholder="services-intro-image-1" data-context="A warm, panoramic wide-angle photograph showing a professional Santa Claus in a luxurious red velvet suit seated in an elegant armchair surrounded by beautifully wrapped Christmas gifts, a glowing decorated tree, and soft candlelight. Children in festive holiday attire gather around him with joyful expressions. The setting feels like a cozy, upscale living room decorated for Christmas — garlands, stockings, and twinkling lights creating a magical, storybook atmosphere. Cinematic warm golden-hour tones." width="1200" height="400" src="/assets/site-services-intro-image-1.webp" alt="Santa Claus surrounded by joyful children and festive holiday decorations at a California event">
+    <div class="si-image-overlay" aria-hidden="true"></div>
+  </div>
+
+  <!-- Bottom SVG divider: soft book-page curve in evergreen -->
+  <div class="si-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,45 Q150,10 300,38 Q450,65 600,30 Q750,5 900,35 Q1050,60 1200,42 L1200,80 Z" fill="#F8F0E0"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section class="services-packages-section" data-layout-spec="Services-packages">
+  <!-- Ornamental divider top -->
+  <div class="pkg-ornament-top" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="400" height="24">
+      <line x1="0" y1="12" x2="160" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+      <path d="M180 12 L186 6 L192 12 L186 18 Z" fill="#D9A441" opacity="0.7"></path>
+      <path d="M196 12 Q200 7 204 12 Q208 17 212 12" stroke="#D9A441" stroke-width="1.2" fill="none" opacity="0.5"></path>
+      <path d="M216 12 L222 6 L228 12 L222 18 Z" fill="#D9A441" opacity="0.7"></path>
+      <line x1="240" y1="12" x2="400" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+    </svg>
+  </div>
+
+  <div class="pkg-container">
+    <!-- Section Header -->
+    <header class="pkg-header">
+      <h2 class="pkg-title">Tailored Santa Experiences</h2>
+      <p class="pkg-subtitle">Every visit is shaped around your family, your event, and your vision of the perfect holiday moment. Explore our signature experiences below and reach out to craft something truly magical.</p>
+    </header>
+
+    <!-- Package Cards Grid -->
+    <div class="pkg-grid">
+
+      <!-- Card 1: Intimate Home Visit -->
+      <article class="pkg-card">
+        <div class="pkg-card-label">
+          <span class="pkg-label-line"></span>
+          <span class="pkg-label-text">Home Visit</span>
+          <span class="pkg-label-line"></span>
+        </div>
+        <div class="pkg-card-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <path d="M8 20L24 8L40 20V42H30V30H18V42H8V20Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"></path>
+            <circle cx="24" cy="22" r="4" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+          </svg>
+        </div>
+        <h3 class="pkg-card-title">Intimate Home Visit</h3>
+        <p class="pkg-card-desc">Santa arrives at your door to create an unforgettable private moment for your little ones — no crowds, no distractions, just pure Christmas wonder.</p>
+        <ul class="pkg-card-features">
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> One-on-one time with Santa in your home</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Personalised letter reading &amp; wish list conversation</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Storytelling and holiday magic tailored to your children</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Flexible duration to suit your family's schedule</li>
+        </ul>
+        <a href="/contact" class="pkg-card-cta">Enquire About This Experience</a>
+      </article>
+
+      <!-- Card 2: Event Appearance (Featured / Taller) -->
+      <article class="pkg-card pkg-card--featured">
+        <div class="pkg-featured-badge">Most Popular</div>
+        <div class="pkg-card-label">
+          <span class="pkg-label-line"></span>
+          <span class="pkg-label-text">Event Appearance</span>
+          <span class="pkg-label-line"></span>
+        </div>
+        <div class="pkg-card-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <rect x="6" y="14" width="36" height="28" rx="2" stroke="currentColor" stroke-width="2" fill="none"></rect>
+            <path d="M6 22H42" stroke="currentColor" stroke-width="1.5"></path>
+            <path d="M16 8V16M32 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            <circle cx="16" cy="32" r="2" fill="currentColor"></circle>
+            <circle cx="24" cy="32" r="2" fill="currentColor"></circle>
+            <circle cx="32" cy="32" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3 class="pkg-card-title">Event &amp; Party Appearance</h3>
+        <p class="pkg-card-desc">Bring the magic of Christmas to your corporate holiday party, school celebration, community event, or large family gathering with a commanding Santa presence.</p>
+        <ul class="pkg-card-features">
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Grand entrance with full Santa regalia</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Greetings, storytelling &amp; crowd engagement</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Suitable for corporate, school &amp; community events</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Scalable timing for large or intimate gatherings</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Fully customisable to your event theme</li>
+        </ul>
+        <a href="/contact" class="pkg-card-cta pkg-card-cta--featured">Enquire About This Experience</a>
+      </article>
+
+      <!-- Card 3: Photo Session Experience -->
+      <article class="pkg-card">
+        <div class="pkg-card-label">
+          <span class="pkg-label-line"></span>
+          <span class="pkg-label-text">Photo Session</span>
+          <span class="pkg-label-line"></span>
+        </div>
+        <div class="pkg-card-icon" aria-hidden="true">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+            <path d="M6 16C6 14.9 6.9 14 8 14H14L17 10H31L34 14H40C41.1 14 42 14.9 42 16V38C42 39.1 41.1 40 40 40H8C6.9 40 6 39.1 6 38V16Z" stroke="currentColor" stroke-width="2" fill="none"></path>
+            <circle cx="24" cy="27" r="7" stroke="currentColor" stroke-width="2" fill="none"></circle>
+            <circle cx="36" cy="19" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3 class="pkg-card-title">Photo Session Experience</h3>
+        <p class="pkg-card-desc">Capture the magic in stunning portraits. Santa poses with your family in a beautifully arranged setting, giving you cherished keepsake images to treasure for years.</p>
+        <ul class="pkg-card-features">
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Dedicated portrait session with Santa</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Styled setting options for your space</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Relaxed pacing — perfect for young children</li>
+          <li><span class="pkg-feature-dot" aria-hidden="true">✦</span> Coordinated with your photographer or ours</li>
+        </ul>
+        <a href="/contact" class="pkg-card-cta">Enquire About This Experience</a>
+      </article>
+
+    </div>
+
+    <!-- Bottom note -->
+    <p class="pkg-footer-note">All experiences are fully personalised. <a href="/contact" class="pkg-footer-link">Contact us</a> to discuss your vision and we'll craft the perfect holiday moment together.</p>
+  </div>
+
+  <!-- Bottom diagonal divider transitioning to darker section -->
+  <div class="pkg-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 L0,45 L1200,0 L1200,90 Z" fill="#1A0505"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="services-process-section" data-layout-spec="Services-process">
+  <!-- Decorative velvet texture overlay -->
+  <div class="sps-texture" aria-hidden="true"></div>
+
+  <!-- Section Header -->
+  <div class="sps-container">
+    <div class="sps-header">
+      <div class="sps-ornament" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="200" height="24" viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="12" x2="82" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+          <polygon points="90,12 95,7 100,12 95,17" fill="#D9A441" opacity="0.8"></polygon>
+          <circle cx="100" cy="12" r="3" fill="#D9A441" opacity="0.9"></circle>
+          <polygon points="100,12 105,7 110,12 105,17" fill="#D9A441" opacity="0.8"></polygon>
+          <line x1="118" y1="12" x2="200" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        </svg>
+      </div>
+      <h2 class="sps-title">How the Magic Happens</h2>
+      <p class="sps-subtitle">From your very first message to the moment Santa walks through the door, we make every step of your holiday entertainment experience simple, personal, and truly unforgettable.</p>
+    </div>
+
+    <!-- Timeline Steps -->
+    <div class="sps-timeline">
+      <!-- Connector Line (desktop) -->
+      <div class="sps-connector" aria-hidden="true"></div>
+
+      <!-- Step 1 -->
+      <article class="sps-step">
+        <div class="sps-medallion-wrap">
+          <div class="sps-medallion">
+            <span class="sps-step-num">01</span>
+          </div>
+          <div class="sps-step-glow" aria-hidden="true"></div>
+        </div>
+        <div class="sps-step-content">
+          <div class="sps-step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6C4 4.9 4.9 4 6 4H22C23.1 4 24 4.9 24 6V18C24 19.1 23.1 20 22 20H8L4 24V6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+              <line x1="9" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+              <line x1="9" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+            </svg>
+          </div>
+          <h3 class="sps-step-title">Send Your Inquiry</h3>
+          <p class="sps-step-desc">Reach out through our contact form or give us a call to share your event details — date, location, number of guests, and what kind of Santa experience you have in mind. We respond promptly to every inquiry.</p>
+        </div>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="sps-step">
+        <div class="sps-medallion-wrap">
+          <div class="sps-medallion">
+            <span class="sps-step-num">02</span>
+          </div>
+          <div class="sps-step-glow" aria-hidden="true"></div>
+        </div>
+        <div class="sps-step-content">
+          <div class="sps-step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="20" height="20" rx="2" stroke="currentColor" stroke-width="1.8"></rect>
+              <line x1="4" y1="10" x2="24" y2="10" stroke="currentColor" stroke-width="1.5"></line>
+              <line x1="10" y1="4" x2="10" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+              <line x1="18" y1="4" x2="18" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></line>
+              <line x1="9" y1="15" x2="19" y2="15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></line>
+              <line x1="9" y1="19" x2="15" y2="19" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></line>
+            </svg>
+          </div>
+          <h3 class="sps-step-title">Plan Your Event Together</h3>
+          <p class="sps-step-desc">We schedule a personal planning conversation to tailor every detail — from the script and special gift moments to the children's names on Santa's list. Your event is crafted with care, not a template.</p>
+        </div>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="sps-step">
+        <div class="sps-medallion-wrap">
+          <div class="sps-medallion">
+            <span class="sps-step-num">03</span>
+          </div>
+          <div class="sps-step-glow" aria-hidden="true"></div>
+        </div>
+        <div class="sps-step-content">
+          <div class="sps-step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M14 8V14L18 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="14" cy="14" r="1.5" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <h3 class="sps-step-title">Visit Coordination</h3>
+          <p class="sps-step-desc">We handle all the behind-the-scenes logistics — confirming timing, arrival routes, costume preparation, and any special setup needs — so your event runs seamlessly from start to finish without any stress on your part.</p>
+        </div>
+      </article>
+
+      <!-- Step 4 -->
+      <article class="sps-step">
+        <div class="sps-medallion-wrap">
+          <div class="sps-medallion sps-medallion--final">
+            <span class="sps-step-num">04</span>
+          </div>
+          <div class="sps-step-glow sps-step-glow--final" aria-hidden="true"></div>
+        </div>
+        <div class="sps-step-content">
+          <div class="sps-step-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 3L15.8 9H22L16.9 12.6L18.7 18.6L14 15L9.3 18.6L11.1 12.6L6 9H12.2L14 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"></path>
+              <circle cx="7" cy="22" r="1.5" fill="currentColor" opacity="0.5"></circle>
+              <circle cx="21" cy="22" r="1.5" fill="currentColor" opacity="0.5"></circle>
+              <circle cx="14" cy="24" r="1.5" fill="currentColor" opacity="0.5"></circle>
+            </svg>
+          </div>
+          <h3 class="sps-step-title">The Magical Arrival</h3>
+          <p class="sps-step-desc">Santa arrives in full regalia, ready to deliver wonder, joy, and cherished holiday memories. Whether it's a family gathering, corporate celebration, or community event, the magic of Christmas comes alive in every moment.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- CTA -->
+    <div class="sps-cta-wrap">
+      <a href="/contact" class="sps-cta-btn">Begin Your Booking Journey</a>
+    </div>
+  </div>
+
+  <!-- Bottom Candlelight Gradient Divider -->
+  <div class="sps-divider-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="candleGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#D9A441" stop-opacity="0.0"></stop>
+          <stop offset="40%" stop-color="#D9A441" stop-opacity="0.06"></stop>
+          <stop offset="100%" stop-color="#E8D8C3" stop-opacity="1"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0,90 L0,45 Q100,30 200,48 T400,38 Q500,30 600,44 T800,36 Q900,28 1000,42 T1200,38 L1200,90 Z" fill="#F8F0E0"></path>
+      <path d="M0,90 L0,55 Q150,48 300,58 T600,50 Q750,44 900,54 T1200,50 L1200,90 Z" fill="#F8F0E0" opacity="0.85"></path>
+      <path d="M0,90 L0,68 Q200,62 400,70 T800,64 Q1000,60 1200,68 L1200,90 Z" fill="#F8F0E0"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="services-benefits-section" data-layout-spec="Services-benefits">
+  <!-- Decorative ornamental divider line (top accent) -->
+  <div class="sbs-ornament-top" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 320 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="320" height="24">
+      <line x1="0" y1="12" x2="120" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+      <polygon points="148,12 156,6 164,12 156,18" fill="#D9A441" opacity="0.7"></polygon>
+      <line x1="120" y1="12" x2="140" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.5"></line>
+      <line x1="168" y1="12" x2="188" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.5"></line>
+      <circle cx="136" cy="12" r="3" fill="none" stroke="#D9A441" stroke-width="1.2" opacity="0.6"></circle>
+      <circle cx="184" cy="12" r="3" fill="none" stroke="#D9A441" stroke-width="1.2" opacity="0.6"></circle>
+      <line x1="188" y1="12" x2="320" y2="12" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+    </svg>
+  </div>
+
+  <div class="sbs-container">
+    <!-- LEFT: Image Column -->
+    <div class="sbs-image-col">
+      <!-- Parchment backplate peeking from top-left -->
+      <div class="sbs-backplate" aria-hidden="true"></div>
+      <!-- Main portrait image -->
+      <figure class="sbs-main-figure">
+        <img loading="lazy" decoding="async" data-placeholder="services-benefits-image-1" data-context="A warm, cinematic portrait of an authentic-looking Santa Claus in a rich red velvet suit with white fur trim, seated in a cozy wooden chair decorated with pine branches and golden ribbon. Santa has a full white beard, kind twinkling eyes, and is smiling gently at a young child sitting on his lap who is whispering in his ear. The background is a softly blurred warm interior with Christmas tree lights and parchment-toned walls. The lighting is golden and intimate, evoking trust, magic, and nostalgic holiday warmth. Professional photography style, editorial quality." width="560" height="720" src="/assets/site-services-benefits-image-1.webp" alt="Authentic Santa Claus sharing a magical moment with a child during a holiday appearance">
+        <!-- Decorative gold frame accent -->
+        <div class="sbs-frame-accent" aria-hidden="true"></div>
+      </figure>
+    </div>
+
+    <!-- RIGHT: Content Column -->
+    <div class="sbs-content-col">
+      <!-- Section label -->
+      <p class="sbs-eyebrow">
+        <span class="sbs-eyebrow-line" aria-hidden="true"></span>
+        Why Families Choose Us
+        <span class="sbs-eyebrow-line" aria-hidden="true"></span>
+      </p>
+
+      <h2 class="sbs-heading">The Magic Behind Every Visit</h2>
+
+      <p class="sbs-intro">When you book a Santa experience, you deserve more than a costume — you deserve an unforgettable moment your family will cherish for years. Here's what sets our Santa entertainment &amp; events apart.</p>
+
+      <!-- Benefits grid: 2-column -->
+      <div class="sbs-benefits-grid">
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <path d="M20 10 C14 10 10 14 10 20 C10 26 14 30 20 30 C26 30 30 26 30 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M17 20 L19 22 L24 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="28" cy="12" r="4" fill="currentColor" opacity="0.15"></circle>
+              <path d="M26 12 L27.5 13.5 L30 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Authentic Appearance</h3>
+            <p>From the hand-combed white beard to the premium velvet suit, every detail is crafted to create a truly believable Santa experience that delights children and adults alike.</p>
+          </div>
+        </article>
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <path d="M14 22 C14 18 17 15 20 15 C23 15 26 18 26 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <circle cx="20" cy="13" r="3" stroke="currentColor" stroke-width="1.8"></circle>
+              <path d="M12 28 C12 25 15.5 23 20 23 C24.5 23 28 25 28 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M8 22 C8 20 10 18.5 12 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"></path>
+              <path d="M32 22 C32 20 30 18.5 28 18.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"></path>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Gentle Rapport with Children</h3>
+            <p>Our Santa has a natural, patient warmth with little ones — knowing how to ease nerves, spark giggles, and make every child feel truly seen and special during their visit.</p>
+          </div>
+        </article>
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <rect x="12" y="14" width="16" height="13" rx="2" stroke="currentColor" stroke-width="1.8"></rect>
+              <path d="M12 18 L20 23 L28 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M17 11 L17 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M23 11 L23 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Dependable Communication</h3>
+            <p>From your first inquiry to the final wave goodbye, expect prompt, clear, and friendly communication. We confirm every detail in advance so your event runs without a hitch.</p>
+          </div>
+        </article>
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <path d="M20 10 L22.5 16 L29 16.5 L24 21 L25.8 28 L20 24.5 L14.2 28 L16 21 L11 16.5 L17.5 16 Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Polished Professionalism</h3>
+            <p>Whether it's an intimate family gathering, a corporate holiday party, or a large community event, we arrive prepared, punctual, and fully committed to exceeding your expectations.</p>
+          </div>
+        </article>
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <path d="M20 12 C20 12 13 16 13 22 C13 25.3 16.1 28 20 28 C23.9 28 27 25.3 27 22 C27 16 20 12 20 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+              <path d="M20 22 L20 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <circle cx="20" cy="23.5" r="1.2" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Memorable Holiday Atmosphere</h3>
+            <p>We bring the full spirit of Christmas into the room — storytelling, laughter, and that unmistakable festive magic that turns an ordinary gathering into a treasured holiday memory.</p>
+          </div>
+        </article>
+
+        <article class="sbs-benefit-item">
+          <div class="sbs-benefit-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5" opacity="0.3"></circle>
+              <path d="M15 20 C15 17 17 14 20 14 C23 14 25 17 25 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <rect x="13" y="20" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"></rect>
+              <circle cx="20" cy="24.5" r="2" stroke="currentColor" stroke-width="1.5"></circle>
+            </svg>
+          </div>
+          <div class="sbs-benefit-body">
+            <h3 class="sbs-benefit-title">Trusted &amp; Insured</h3>
+            <p>Your peace of mind matters. Our Santa service operates with full professionalism, background-checked performers, and the reliability that families and event planners count on every season.</p>
+          </div>
+        </article>
+
+      </div>
+      <!-- End benefits grid -->
+
+      <div class="sbs-cta-row">
+        <a href="/contact" class="sbs-btn-primary">Book Your Santa Experience</a>
+      </div>
+    </div>
+    <!-- End content column -->
+  </div>
+
+  <!-- Bottom gold ribbon wave divider -->
+  <div class="sbs-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Accent gold ribbon line -->
+      <path d="M0,36 C120,18 240,52 360,36 C480,20 600,50 720,36 C840,22 960,50 1080,36 C1200,22 1320,48 1440,36 L1440,72 L0,72 Z" fill="#1F5B3A"></path>
+      <path d="M0,40 C120,22 240,56 360,40 C480,24 600,54 720,40 C840,26 960,54 1080,40 C1200,26 1320,52 1440,40" stroke="#D9A441" stroke-width="1.5" fill="#1F5B3A" opacity="0.55"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="services-cta-section" data-layout-spec="Services-cta">
+  <!-- Corner Decorative Motifs -->
+  <div class="services-cta-corner services-cta-corner--tl" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- Star -->
+      <polygon points="20,4 23,14 33,14 25,20 28,30 20,24 12,30 15,20 7,14 17,14" fill="#D9A441" opacity="0.85"></polygon>
+      <!-- Ribbon curl left -->
+      <path d="M10,55 Q30,45 50,60 Q70,75 90,65" stroke="#D9A441" stroke-width="2" fill="none" opacity="0.55" stroke-linecap="round"></path>
+      <path d="M5,70 Q25,58 48,72 Q68,84 88,76" stroke="#D9A441" stroke-width="1.2" fill="none" opacity="0.35" stroke-linecap="round"></path>
+      <!-- Small star -->
+      <polygon points="80,20 82,27 89,27 83,31 85,38 80,34 75,38 77,31 71,27 78,27" fill="#D9A441" opacity="0.5"></polygon>
+    </svg>
+  </div>
+
+  <div class="services-cta-corner services-cta-corner--tr" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- Star -->
+      <polygon points="100,4 103,14 113,14 105,20 108,30 100,24 92,30 95,20 87,14 97,14" fill="#D9A441" opacity="0.85"></polygon>
+      <!-- Ribbon curl right -->
+      <path d="M110,55 Q90,45 70,60 Q50,75 30,65" stroke="#D9A441" stroke-width="2" fill="none" opacity="0.55" stroke-linecap="round"></path>
+      <path d="M115,70 Q95,58 72,72 Q52,84 32,76" stroke="#D9A441" stroke-width="1.2" fill="none" opacity="0.35" stroke-linecap="round"></path>
+      <!-- Small star -->
+      <polygon points="40,20 42,27 49,27 43,31 45,38 40,34 35,38 37,31 31,27 38,27" fill="#D9A441" opacity="0.5"></polygon>
+    </svg>
+  </div>
+
+  <div class="services-cta-corner services-cta-corner--bl" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- Ribbon curl bottom-left -->
+      <path d="M10,50 Q30,62 50,50 Q70,38 90,52" stroke="#D9A441" stroke-width="2" fill="none" opacity="0.55" stroke-linecap="round"></path>
+      <path d="M5,65 Q28,78 50,65 Q72,52 92,68" stroke="#D9A441" stroke-width="1.2" fill="none" opacity="0.35" stroke-linecap="round"></path>
+      <!-- Small star -->
+      <polygon points="20,100 22,107 29,107 23,111 25,118 20,114 15,118 17,111 11,107 18,107" fill="#D9A441" opacity="0.7"></polygon>
+    </svg>
+  </div>
+
+  <div class="services-cta-corner services-cta-corner--br" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+      <!-- Ribbon curl bottom-right -->
+      <path d="M110,50 Q90,62 70,50 Q50,38 30,52" stroke="#D9A441" stroke-width="2" fill="none" opacity="0.55" stroke-linecap="round"></path>
+      <path d="M115,65 Q92,78 70,65 Q48,52 28,68" stroke="#D9A441" stroke-width="1.2" fill="none" opacity="0.35" stroke-linecap="round"></path>
+      <!-- Small star -->
+      <polygon points="100,100 102,107 109,107 103,111 105,118 100,114 95,118 97,111 91,107 98,107" fill="#D9A441" opacity="0.7"></polygon>
+    </svg>
+  </div>
+
+  <!-- Main Content -->
+  <div class="services-cta-container">
+    <!-- Gold ornamental rule above -->
+    <div class="services-cta-ornament services-cta-ornament--top" aria-hidden="true">
+      <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="400" height="20">
+        <line x1="0" y1="10" x2="170" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <polygon points="200,2 204,10 200,18 196,10" fill="#D9A441" opacity="0.8"></polygon>
+        <line x1="185" y1="10" x2="195" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <line x1="205" y1="10" x2="215" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <line x1="230" y1="10" x2="400" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <circle cx="185" cy="10" r="3" fill="#D9A441" opacity="0.7"></circle>
+        <circle cx="215" cy="10" r="3" fill="#D9A441" opacity="0.7"></circle>
+      </svg>
+    </div>
+
+    <div class="services-cta-badge" aria-hidden="true">
+      <span>✦</span> Book Your Santa Experience <span>✦</span>
+    </div>
+
+    <h2 class="services-cta-heading">Reserve Your Holiday Date Before the Season Fills Up</h2>
+
+    <p class="services-cta-body">The most magical moments deserve the most careful planning. California families and event planners know that preferred dates — weekends, school parties, and Christmas Eve — fill quickly each season. Reach out early to discuss your vision, confirm availability, and ensure every detail of your Santa Claus experience is crafted just right for your gathering.</p>
+
+    <a href="/contact" class="services-cta-btn">
+      <i class="fa fa-envelope-open-text" aria-hidden="true"></i>
+      Inquire About Your Date
+    </a>
+
+    <p class="services-cta-note">No booking fees to inquire &nbsp;•&nbsp; Personal response within 24 hours &nbsp;•&nbsp; Serving all of California</p>
+
+    <!-- Gold ornamental rule below -->
+    <div class="services-cta-ornament services-cta-ornament--bottom" aria-hidden="true">
+      <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="400" height="20">
+        <line x1="0" y1="10" x2="170" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <polygon points="200,2 204,10 200,18 196,10" fill="#D9A441" opacity="0.8"></polygon>
+        <line x1="185" y1="10" x2="195" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <line x1="205" y1="10" x2="215" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <line x1="230" y1="10" x2="400" y2="10" stroke="#D9A441" stroke-width="1.5" opacity="0.6"></line>
+        <circle cx="185" cy="10" r="3" fill="#D9A441" opacity="0.7"></circle>
+        <circle cx="215" cy="10" r="3" fill="#D9A441" opacity="0.7"></circle>
+      </svg>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" aria-label="Site Footer"> <div class="footer-top-accent"></div> <div class="footer-container"> <div class="footer-grid"> <!-- Column 1: Company Info --> <div class="footer-col footer-col--brand"> <img src="/assets/santa4california-entertainment-events-logo.webp" alt="Santa4California" class="logo"> <p class="footer-tagline">Bringing the magic of Christmas to life across California — authentic, heartwarming Santa experiences for events, parties, and unforgettable memories.</p> <div class="footer-social">    </div> </div> <!-- Column 2: Quick Links --> <div class="footer-col footer-col--links"> <h3 class="footer-heading"><span class="heading-ornament">✦</span> Quick Links <span class="heading-ornament">✦</span></h3> <ul class="footer-nav"> <li><a href="/">Home</a></li> <li><a href="/services">Services</a></li> <li><a href="/about">About</a></li> <li><a href="/contact">Contact</a></li> </ul> </div> <!-- Column 3: Contact Info --> <div class="footer-col footer-col--contact"> <h3 class="footer-heading"><span class="heading-ornament">✦</span> Get In Touch <span class="heading-ornament">✦</span></h3> <ul class="footer-contact"> <li> <span class="contact-icon"><i class="fas fa-envelope"></i></span> <span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span> </li> <li> <span class="contact-icon"><i class="fas fa-phone"></i></span> <span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span> </li> <li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span> <span class="contact-text">[business_address]</span></a></li> </ul> </div> <!-- Column 4: Hours / Badge --> <div class="footer-col footer-col--hours"> <h3 class="footer-heading"><span class="heading-ornament">✦</span> Booking Hours <span class="heading-ornament">✦</span></h3> <ul class="footer-hours"> <li><a href="/"><span class="day">Mon – Fri</span><span class="time">9:00 AM – 6:00 PM</span></a></li> <li><a href="/"><span class="day">Saturday</span><span class="time">10:00 AM – 4:00 PM</span></a></li> <li><a href="/"><span class="day">Sunday</span><span class="time">Closed</span></a></li> </ul> <div class="footer-badge"> <i class="fas fa-star"></i> Serving All of California <i class="fas fa-star"></i> </div> </div> </div> </div> <!-- Decorative Divider --> <div class="footer-divider"> <span class="divider-ornament">✦✦✦</span> </div> <!-- Bottom Bar --> <div class="footer-bottom"> <div class="footer-container"> <div class="footer-bottom-inner"> <p class="footer-copyright">© 2026 Santa4California. All rights reserved.</p> <div class="footer-legal"> <a href="/privacy">Privacy Policy</a> <span class="legal-sep">|</span> <a href="/terms">Terms &amp; Conditions</a> <span class="legal-sep">|</span> <a href="/accessibility">Accessibility</a> <span class="legal-sep">|</span> <a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a> </div> </div> </div> </div> </footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+
+    <script id="zappy-navbar-scroll-effect">
+    (function(){
+      var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');
+      var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');
+      if(!nb)return;
+      var fb='rgba(232,216,195,0.85)';
+      var th=60;
+      var rs=getComputedStyle(document.documentElement);
+      var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';
+      var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';
+      var st=true?td:tl;
+      nb.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease,box-shadow 0.3s ease';
+      if(cm)cm.style.transition='background 0.3s ease,backdrop-filter 0.3s ease,-webkit-backdrop-filter 0.3s ease';
+      var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';
+      var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle'];
+      function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}
+      function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}
+      function applyScrolled(){
+        nb.classList.add('scrolled');
+        if(window.innerWidth>768){
+          nb.style.setProperty('--frosted-text',st);
+          nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('background-color',fb,'important');
+          nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+        }
+        if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}
+      }
+      function onS(){
+        if(window._zappyNavNoDarkHero) return;
+        if(window.innerWidth<=768){nb.classList.remove('scrolled');cTC(nb);if(cm){cm.classList.remove('scrolled');cTC(cm);}return;}
+        var y=window.scrollY||window.pageYOffset;
+        if(y>th){
+          nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');
+          nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';
+          sTC(nb,st);
+          if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}
+        }else{
+          nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');
+          nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';
+          cTC(nb);
+          if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}
+        }
+      }
+      function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}
+      window.addEventListener('scroll',onS,{passive:true});
+      window.addEventListener('resize',onS,{passive:true});
+      onS();
+      var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main:not(.courses-page-main)>section:first-child');
+      var hasDH=false;
+      if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}
+      if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);applyScrolled();window._zappyNavNoDarkHero=true;}
+    })();
+    </script>
+</body>
+</html>
