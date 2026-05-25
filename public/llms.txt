@@ -7,33 +7,33 @@
 ## Pages
 
 ### Home
-https://santa4california-c9e242b4.zappy5.app
+https://example.com
 Santa4California brings the magic of Christmas to life! Hire Santa for unforgettable Entertainment &amp; Events, family parties, and corporate gatherings across California. Book today!
 
 ### Services
-https://santa4california-c9e242b4.zappy5.app/services
+https://example.com/services
 Explore premium Entertainment &amp; Events services from Santa4California — photo sessions, private parties, corporate events, and more. Discover the perfect Santa package for your celebration!
 
 ### About
-https://santa4california-c9e242b4.zappy5.app/about
+https://example.com/about
 Santa4California has been crafting joyful Entertainment &amp; Events experiences across California for years. Learn our story, our passion for Christmas magic, and why families trust us every season!
 
 ### Contact
-https://santa4california-c9e242b4.zappy5.app/contact
+https://example.com/contact
 Ready to HireSanta for your next event? Contact Santa4California today to check availability, get a custom quote, and lock in your unforgettable Entertainment &amp; Events holiday experience fast!
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://santa4california-c9e242b4.zappy5.app/privacy
+https://example.com/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://santa4california-c9e242b4.zappy5.app/terms
+https://example.com/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://santa4california-c9e242b4.zappy5.app/accessibility
+https://example.com/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
@@ -43,8 +43,8 @@ Information about WCAG compliance and accessibility features.
 - (No contact details configured yet.)
 
 ### Contact form
-- URL: https://santa4california-c9e242b4.zappy5.app/contact
-- Endpoint: https://santa4california-c9e242b4.zappy5.app/api/email/contact-form
+- URL: https://example.com/contact
+- Endpoint: https://example.com/api/email/contact-form
 - Method: POST
 - Content-Type: application/json
 - Fields:
@@ -75,6 +75,6 @@ Entertainment & Events
 
 # Machine-readable feeds
 
-- Sitemap (XML): https://santa4california-c9e242b4.zappy5.app/sitemap.xml
-- Robots: https://santa4california-c9e242b4.zappy5.app/robots.txt
-- Flattened page text (for LLMs): https://santa4california-c9e242b4.zappy5.app/llms-full.txt
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt
